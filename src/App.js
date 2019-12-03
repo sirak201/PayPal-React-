@@ -1,24 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from "react";
+import "./App.css";
+import NavBar from "./Components/navbar";
+import { PayPalButton } from "react-paypal-button";
+import key from "./keys";
+var env = require("env-variable")();
+
+const paypalOptions = {
+  clientId: key,
+  intent: "capture"
+};
+
+const buttonStyles = {
+  layout: "vertical",
+  shape: "rect",
+  marginTop: "25px"
+};
+console.log(env);
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar />
+      <Fragment>
+        <div style={{ marginTop: "50px" }}>
+          <PayPalButton
+            paypalOptions={paypalOptions}
+            buttonStyles={buttonStyles}
+            amount={27800.0}
+          />
+        </div>
+      </Fragment>
     </div>
   );
 }
